@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2016 at 03:22 AM
+-- Generation Time: Apr 14, 2017 at 11:12 AM
 -- Server version: 5.7.12-log
 -- PHP Version: 7.0.5
 
@@ -33,7 +33,8 @@ CREATE TABLE `annonces` (
   `libelleAce` longtext,
   `idCat` int(11) NOT NULL,
   `idUsers` int(11) NOT NULL,
-  `statutAce` varchar(255) DEFAULT NULL
+  `statutAce` varchar(255) DEFAULT NULL,
+  `prixAce` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -86,6 +87,17 @@ CREATE TABLE `newsletters` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sous_categories`
+--
+
+CREATE TABLE `sous_categories` (
+  `id` int(20) NOT NULL,
+  `sous_cat` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -109,8 +121,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`idUsers`, `username`, `password`, `typeCompte`, `confirmationToken`, `confirmedAt`, `nomAb`, `prenomAb`, `emailAb`, `telephoneAb`, `resetToken`, `resetAt`) VALUES
-(32, 'Navid500', '$2y$10$s9AMRxGbBQKJCFtS2BZ69.TWYcM8TQtxyr2d3ro.strEkRZe5vPL2', 'particulier', NULL, '2016-09-24 01:46:35', 'Ross', 'nolan', 'nolannross2016@gmail.com', 5788888, NULL, NULL),
-(33, 'sadate95', '$2y$10$44auRKAZe9RUynNkMERREuC4uE9csd1hFPsZdlG81uxVAf/QnFH6u', 'particulier', NULL, '2016-09-24 01:53:38', 'kache', 'aminou', 'aminoukache@gmail.com', 5788888, NULL, NULL);
+(32, 'Navid500', '$2y$10$4/oByhPLpJvbxMIJ9mfBBOHCCPeECvawG.ejXdFyPjmF2ZdEyz0/O', 'particulier', NULL, '2016-09-24 01:46:35', 'Ross', 'nolan', 'nolannross2016@gmail.com', 5788888, NULL, NULL),
+(33, 'sadate95', '$2y$10$44auRKAZe9RUynNkMERREuC4uE9csd1hFPsZdlG81uxVAf/QnFH6u', 'particulier', NULL, '2016-09-24 01:53:38', 'kache', 'aminou', 'aminoukache@gmail.com', 5788888, 'hsZDdbN3LXjPLTBiPX7tuX1pjf2qCJYhJ1WuR5tLsqelnQ6fpYwOaeUFqEEt', '2016-10-05 13:39:41');
 
 --
 -- Indexes for dumped tables
@@ -143,11 +155,19 @@ ALTER TABLE `medias`
   ADD PRIMARY KEY (`idMedias`),
   ADD KEY `fk_Medias_Annonces1_idx` (`idAce`);
 
+  ALTER TABLE `sous_categories`
+    ADD KEY `fk_Categories_Sous_categories` (`idAce`);
 --
 -- Indexes for table `newsletters`
 --
 ALTER TABLE `newsletters`
   ADD PRIMARY KEY (`idnewsletters`);
+
+--
+-- Indexes for table `sous_categories`
+--
+ALTER TABLE `sous_categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -184,6 +204,11 @@ ALTER TABLE `medias`
 --
 ALTER TABLE `newsletters`
   MODIFY `idnewsletters` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `sous_categories`
+--
+ALTER TABLE `sous_categories`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
